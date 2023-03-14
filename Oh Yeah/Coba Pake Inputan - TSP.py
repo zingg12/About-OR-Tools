@@ -9,10 +9,16 @@ from geopy.distance import distance
 coordinates = []
 n = int(input("Masukkan jumlah titik koordinat: "))
 for i in range(n):
-    x, y = map(float, input(f"Masukkan koordinat titik {i+1} (format: x y): ").split())
+    nama_lokasi = input("Masukkan Nama Lokasi")
+    coordinates.append(nama_lokasi)
+    x, y = map(float, input(f"Masukkan koordinat titik {nama_lokasi} (format: x y): ").split())
     coordinates.append((x, y))
 
-print(coordinates)
+locations = {
+    nama_lokasi : (coordinates)
+}
+
+print(locations)
 
 # Define the locations and distances
 num_lokasi = len(coordinates)
