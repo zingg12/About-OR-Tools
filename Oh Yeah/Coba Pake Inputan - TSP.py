@@ -5,25 +5,38 @@ from ortools.constraint_solver import pywrapcp
 import numpy as np
 from geopy.distance import distance
 
-#User Input 
-coordinates = []
-n = int(input("Masukkan jumlah titik koordinat: "))
-for i in range(n):
-    nama_lokasi = input("Masukkan Nama Lokasi")
-    coordinates.append(nama_lokasi)
-    x, y = map(float, input(f"Masukkan koordinat titik {nama_lokasi} (format: x y): ").split())
-    coordinates.append((x, y))
+# membuat dictionary kosong
+locations = {}
 
-locations = {
-    nama_lokasi : (coordinates)
-}
+# menerima input dari pengguna dan menyimpannya dalam dictionary
+nama_lokasi = input("Masukkan Nama Lokasi: ")
+titik_koordinat = input("Masukkan Titik Koordinat: ").split()
+titik_koordinat = titik_koordinat.astype(float)
+locations[nama_lokasi] = titik_koordinat
 
+# mencetak dictionary yang telah diisi dengan input pengguna
 print(locations)
 
-# Define the locations and distances
-num_lokasi = len(coordinates)
 
-distances = np.zeros((num_lokasi, num_lokasi))
+#User Input 
+# coordinates = []
+# n = int(input("Masukkan jumlah titik koordinat: "))
+# for i in range(n):
+#     nama_lokasi = input("Masukkan Nama Lokasi")
+#     coordinates.append(nama_lokasi)
+#     x, y = map(float, input(f"Masukkan koordinat titik {nama_lokasi} (format: x y): ").split())
+#     coordinates.append((x, y))
+
+# locations = {
+#     nama_lokasi : (coordinates)
+# }
+
+# print(locations)
+
+# # Define the locations and distances
+# num_lokasi = len(coordinates)
+
+# distances = np.zeros((num_lokasi, num_lokasi))
 # for i, (location1, coords1) in enumerate(coordinates.items()):
 #     for j, (location2, coords2) in enumerate(coordinates.items()):
 #         distances[i][j] = distance(coords1, coords2).km
