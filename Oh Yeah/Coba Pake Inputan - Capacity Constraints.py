@@ -1,41 +1,56 @@
-# Capacity Constraints (VINCENTY)
+# Capacity Constraints - Input User (VINCENTY)
 
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 import numpy as np
 from geopy.distance import distance
 
-# Define Locations
-locations = {
-    'Mayora': (-6.249605, 106.977037), #0
-    'BCA': (-6.190411, 106.822891), #1
-    'Metro TV': (-6.202777, 106.780809), #2
-    'Summarecon Mall Serpong': (-6.239488, 106.625396), #3
-    'Lippo Mall Puri': (-6.194608, 106.734364), #4
-    'SMB': (-6.226194, 107.001009), #5
-    'RCTI': (-6.182880, 106.785032), #6
-    'AEON': (-6.304409, 106.644157) # 7
-}
+
+capacity = []
+num_vehicles = int(input("Masukkan Jumlah Kendaraan yang akan digunakan: "))
+for c in range(num_vehicles):
+     vehicles_capacities = int(input(f"Masukkan kapasitas pada kendaraan {c+1}:"))
+     capacity.append(vehicles_capacities)
+
+# max_distances = int(input("Masukkan Batas Maksimum Jarak Tempuh Perjalanan (dalam Kilometer): "))
+num_locations = int(input("Masukkan Jumlah Lokasi yang akan dikunjungi: "))
+
+# Create data locations
+locations = []
+
+# Input dari user
+for i in range(num_locations):
+    lat = float(input(f"Masukkan latitude lokasi ke-{i+1}: "))
+    lon = float(input(f"Masukkan longitude lokasi ke-{i+1}: "))
+    locations.append((lat, lon))
+
+demands = []
+for d in range(num_locations):
+    demand_lokasi = int(input(f"Masukkan demand pada lokasi ke-{d+1}"))
+    demands.append(demand_lokasi)
 
 num_locations = len(locations)
 
 distances = np.zeros((num_locations, num_locations))
-for i, (location1, coords1) in enumerate(locations.items()):
-    for j, (location2, coords2) in enumerate(locations.items()):
-        distances[i][j] = distance(coords1, coords2).km
+for i, x1 in enumerate(locations):
+    for j, x2 in enumerate(locations):
+        distances[i][j] = distance(x1, x2).km
 
-distance_matrix = distances.astype(int)
+
+distance_matrix = distances
 print(distance_matrix)
 
-# Create Data
+# Define data
 def create_data_model():
     data = {}
     data['distance_matrix'] = distance_matrix
-    data['num_vehicles'] = 3
-    data['demands'] = [0, 3, 5, 1, 3, 6, 2, 1]
-    data['vehicles_capacities'] = [7, 7, 7]
+    data['num_vehicles'] = num_vehicles
+    data['demands'] = demands
+    data['vehicles_capacities'] = vehicles_capacities
     data['depot'] = 0
     return data
+
+demand = len(data['vehicles_capacities'])
 
 # Create model
 data = create_data_model()
@@ -58,11 +73,13 @@ def demand_callback(from_index):
 
 demand_callback_index = routing.RegisterUnaryTransitCallback(demand_callback)
 
+vehicles_capacities = list(data['vehicles_capacities'])
+
 #Add Dimension
 routing.AddDimensionWithVehicleCapacity(
     demand_callback_index,
     0,  # null capacity slack
-    data['vehicles_capacities'],  # vehicle maximum capacities
+    vehicles_capacities,  # vehicle maximum capacities
     True,  # start cumul to zero
     'Capacity')
 
