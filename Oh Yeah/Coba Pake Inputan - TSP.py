@@ -5,90 +5,74 @@ from ortools.constraint_solver import pywrapcp
 import numpy as np
 from geopy.distance import distance
 
-# membuat dictionary kosong
-locations = {}
+num_locations = int(input("Masukkan Jumlah Lokasi yang akan dikunjungi: "))
 
-# menerima input dari pengguna dan menyimpannya dalam dictionary
-nama_lokasi = input("Masukkan Nama Lokasi: ")
-titik_koordinat = input("Masukkan Titik Koordinat: ").split()
-titik_koordinat = titik_koordinat.astype(float)
-locations[nama_lokasi] = titik_koordinat
+# Create an empty list to store the coordinates of each city
+locations = []
 
-# mencetak dictionary yang telah diisi dengan input pengguna
-print(locations)
+# Get the coordinates of each city from the user
+for i in range(num_locations):
+    lat, lon = float(input(f"Masukkan latitude lokasi ke-{i+1}: "))
+    lon = float(input(f"Masukkan longitude lokasi ke-{i+1}: "))
+    locations.append((lat, lon))
+
+# Convert array to tuple
+# locations = tuple(locations)
+
+num_locations = len(locations)
+
+distances = np.zeros((num_locations, num_locations))
+for i, x1 in enumerate(locations):
+    for j, x2 in enumerate(locations):
+        distances[i][j] = distance(x1, x2).km
 
 
-#User Input 
-# coordinates = []
-# n = int(input("Masukkan jumlah titik koordinat: "))
-# for i in range(n):
-#     nama_lokasi = input("Masukkan Nama Lokasi")
-#     coordinates.append(nama_lokasi)
-#     x, y = map(float, input(f"Masukkan koordinat titik {nama_lokasi} (format: x y): ").split())
-#     coordinates.append((x, y))
+distance_matrix = distances
+print(distance_matrix)
 
-# locations = {
-#     nama_lokasi : (coordinates)
-# }
+# Define the TSP problem
+def create_data_model():
+    data = {}
+    data['distance_matrix'] = distance_matrix
+    data['num_vehicles'] = 1
+    data['depot'] = 0
+    return data
 
-# print(locations)
+# Solve the TSP problem
+data = create_data_model()
+manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
+                                           data['num_vehicles'], data['depot'])
+routing = pywrapcp.RoutingModel(manager)
 
-# # Define the locations and distances
-# num_lokasi = len(coordinates)
+def distance_callback(from_index, to_index):
+    from_node = manager.IndexToNode(from_index)
+    to_node = manager.IndexToNode(to_index)
+    return data['distance_matrix'][from_node][to_node]
 
-# distances = np.zeros((num_lokasi, num_lokasi))
-# for i, (location1, coords1) in enumerate(coordinates.items()):
-#     for j, (location2, coords2) in enumerate(coordinates.items()):
-#         distances[i][j] = distance(coords1, coords2).km
+transit_callback_index = routing.RegisterTransitCallback(distance_callback)
+routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
 
-# distance_matrix = distances
-# print(distance_matrix)
-
-# # print('Distance Matrix:  \n', distance_matrix)
-
-# # Define the TSP problem
-# def create_data_model():
-#     data = {}
-#     data['distance_matrix'] = distance_matrix
-#     data['num_vehicles'] = 1
-#     data['depot'] = 0
-#     return data
-
-# # Solve the TSP problem
-# data = create_data_model()
-# manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
-#                                            data['num_vehicles'], data['depot'])
-# routing = pywrapcp.RoutingModel(manager)
-
-# def distance_callback(from_index, to_index):
-#     from_node = manager.IndexToNode(from_index)
-#     to_node = manager.IndexToNode(to_index)
-#     return data['distance_matrix'][from_node][to_node]
-
-# transit_callback_index = routing.RegisterTransitCallback(distance_callback)
-# routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
-
-# search_parameters = pywrapcp.DefaultRoutingSearchParameters()
-# search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.SAVINGS)
-# search_parameters.time_limit.seconds = 30
-# solution = routing.SolveWithParameters(search_parameters)
+search_parameters = pywrapcp.DefaultRoutingSearchParameters()
+search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.SAVINGS)
+search_parameters.time_limit.seconds = 30
+solution = routing.SolveWithParameters(search_parameters)
     
-# # Print the solution
-# def print_solution(manager, routing, solution):
-#     index = routing.Start(0)
-#     plan_output = 'Route for vehicle 0:\n'
-#     route_distance = 0
-#     while not routing.IsEnd(index):
-#         plan_output += ' {} ->'.format(manager.IndexToNode(index))
-#         previous_index = index
-#         index = solution.Value(routing.NextVar(index))
-#         route_distance += routing.GetArcCostForVehicle(previous_index, index, 0)
-#     plan_output += ' {}\n'.format(manager.IndexToNode(index))
-#     route_distance += routing.GetArcCostForVehicle(previous_index, index, 0)
-#     plan_output += 'Route distance: {} km\n'.format(route_distance)
-#     print(plan_output)
+# Print the solution
+def print_solution(manager, routing, solution):
+    index = routing.Start(0)
+    plan_output = 'Route for vehicle 0:\n'
+    route_distance = 0
+    while not routing.IsEnd(index):
+        plan_output += ' {} ->'.format(manager.IndexToNode(index))
+        previous_index = index
+        index = solution.Value(routing.NextVar(index))
+        route_distance += routing.GetArcCostForVehicle(previous_index, index, 0)
+    plan_output += ' {}\n'.format(manager.IndexToNode(index))
+    route_distance += routing.GetArcCostForVehicle(previous_index, index, 0)
+    plan_output += 'Route distance: {} km\n'.format(route_distance)
+    print(plan_output)
 
-# #Print Solution
-# if solution :
-#     print_solution(manager, routing, solution)
+#Print Solution
+if solution :
+    print_solution(manager, routing, solution)
 
