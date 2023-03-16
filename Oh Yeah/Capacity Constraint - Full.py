@@ -1,39 +1,37 @@
-# VRP - Input User (VINCENTY)
+# Capacity (VINCENTY)
 
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 import numpy as np
 from geopy.distance import distance
 
-num_vehicles = int(input("Masukkan Jumlah Kendaraan yang akan digunakan: "))
-max_distances = int(input("Masukkan Batas Maksimum Jarak Tempuh Perjalanan (dalam Kilometer): "))
-num_locations = int(input("Masukkan Jumlah Lokasi yang akan dikunjungi: "))
-
-# Create data locations
-locations = []
-
-# Input dari user
-for i in range(num_locations):
-    lat = float(input(f"Masukkan latitude lokasi ke-{i+1}: "))
-    lon = float(input(f"Masukkan longitude lokasi ke-{i+1}: "))
-    locations.append((lat, lon))
+# Define Locations
+locations = {
+    'Mayora': (-6.249605, 106.977037), #0
+    'BCA': (-6.190411, 106.822891), #1
+    'Metro TV': (-6.202777, 106.780809), #2
+    'Summarecon Mall Serpong': (-6.239488, 106.625396), #3
+    'Lippo Mall Puri': (-6.194608, 106.734364), #4
+    'SMB': (-6.226194, 107.001009), #5
+    'RCTI': (-6.182880, 106.785032), #6
+    'AEON': (-6.304409, 106.644157) # 7
+}
 
 num_locations = len(locations)
 
 distances = np.zeros((num_locations, num_locations))
-for i, x1 in enumerate(locations):
-    for j, x2 in enumerate(locations):
-        distances[i][j] = distance(x1, x2).km
+for i, (location1, coords1) in enumerate(locations.items()):
+    for j, (location2, coords2) in enumerate(locations.items()):
+        distances[i][j] = distance(coords1, coords2).km
 
-
-distance_matrix = distances
+distance_matrix = distances.astype(int)
 print(distance_matrix)
 
-# Define data
+# Create Data
 def create_data_model():
     data = {}
     data['distance_matrix'] = distance_matrix
-    data['num_vehicles'] = num_vehicles
+    data['num_vehicles'] = 3
     data['depot'] = 0
     return data
 
@@ -56,7 +54,7 @@ dimension_distance = 'Distance'
 routing.AddDimension(
 transit_callback_index,
 0,
-max_distances,
+100,
 True,
 dimension_distance
 )
