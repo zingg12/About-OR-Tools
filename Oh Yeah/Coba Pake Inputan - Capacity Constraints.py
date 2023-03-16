@@ -6,11 +6,12 @@ import numpy as np
 from geopy.distance import distance
 
 
-capacity = []
+
 num_vehicles = int(input("Masukkan Jumlah Kendaraan yang akan digunakan: "))
+vehicles_capacities = []
 for c in range(num_vehicles):
-     vehicles_capacities = int(input(f"Masukkan kapasitas pada kendaraan {c+1}:"))
-     capacity.append(vehicles_capacities)
+     capacity = int(input(f"Masukkan kapasitas pada kendaraan {c+1}:"))
+     vehicles_capacities.append(capacity)
 
 # max_distances = int(input("Masukkan Batas Maksimum Jarak Tempuh Perjalanan (dalam Kilometer): "))
 num_locations = int(input("Masukkan Jumlah Lokasi yang akan dikunjungi: "))
@@ -49,8 +50,6 @@ def create_data_model():
     data['vehicles_capacities'] = vehicles_capacities
     data['depot'] = 0
     return data
-
-demand = len(data['vehicles_capacities'])
 
 # Create model
 data = create_data_model()
