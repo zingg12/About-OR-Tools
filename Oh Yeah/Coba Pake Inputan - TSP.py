@@ -12,8 +12,13 @@ locations = []
 
 # Input dari user
 for i in range(num_locations):
-    lat = float(input(f"Masukkan latitude lokasi ke-{i+1}: "))
-    lon = float(input(f"Masukkan longitude lokasi ke-{i+1}: "))
+    # lat = float(input(f"Masukkan latitude lokasi ke-{i+1}: "))
+    # lon = float(input(f"Masukkan longitude lokasi ke-{i+1}: "))
+    # locations.append((lat, lon))
+    koordinat = input(f"Masukkan koordinat lokasi ke-{i+1}: ")
+    lat, lon = koordinat.split(", ")
+    lat = float(lat)
+    lon = float(lon)
     locations.append((lat, lon))
 
 num_locations = len(locations)
