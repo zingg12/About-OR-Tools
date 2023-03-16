@@ -7,17 +7,14 @@ from geopy.distance import distance
 
 num_locations = int(input("Masukkan Jumlah Lokasi yang akan dikunjungi: "))
 
-# Create an empty list to store the coordinates of each city
+# Create data locations
 locations = []
 
-# Get the coordinates of each city from the user
+# Input dari user
 for i in range(num_locations):
-    lat, lon = float(input(f"Masukkan latitude lokasi ke-{i+1}: "))
+    lat = float(input(f"Masukkan latitude lokasi ke-{i+1}: "))
     lon = float(input(f"Masukkan longitude lokasi ke-{i+1}: "))
     locations.append((lat, lon))
-
-# Convert array to tuple
-# locations = tuple(locations)
 
 num_locations = len(locations)
 
@@ -30,7 +27,7 @@ for i, x1 in enumerate(locations):
 distance_matrix = distances
 print(distance_matrix)
 
-# Define the TSP problem
+# Define data
 def create_data_model():
     data = {}
     data['distance_matrix'] = distance_matrix
@@ -38,7 +35,7 @@ def create_data_model():
     data['depot'] = 0
     return data
 
-# Solve the TSP problem
+# Create model
 data = create_data_model()
 manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
                                            data['num_vehicles'], data['depot'])
