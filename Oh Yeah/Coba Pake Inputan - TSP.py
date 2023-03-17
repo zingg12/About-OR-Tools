@@ -21,7 +21,7 @@ for i in range(num_locations):
     lon = float(lon)
     locations.append((lat, lon))
 
-num_locations = len(locations)
+# num_locations = len(locations)
 
 distances = np.zeros((num_locations, num_locations))
 for i, x1 in enumerate(locations):
