@@ -19,7 +19,7 @@ span {
     color: #b6895b;
 }
 
-.num-locations {
+.menu {
     width: 22.5rem;
     height: min-content;
     padding: 1.5rem;
@@ -28,21 +28,21 @@ span {
     background-color: #2d2d30;
 }
 
-.num-locations h1 {
+.menu h1 {
     font-size: 2.25rem;
     margin-bottom: 1rem;
 }
 
-.num-locations form {
+.menu form {
     font-size: 1rem;
 
 }
 
-.num-locations form .form-group {
+.menu form .form-group {
     margin-bottom: 1rem;
 }
 
-.num-locations form input[type="submit"] {
+.menu form input[type="submit"] {
     font-size: 1rem;
     margin-top: 0.9rem;
 }
@@ -62,11 +62,17 @@ form {
     text-align: center;
 }
 
-.add-locations{
-    margin-top: 1.5rem;
-    border: 1px solid #6e6e6e;
-    /* background-color: #493838; */
-    /* border-radius: 10%; */
-    /* align-items: center; */
+.btn-menu{
+    margin: 2rem 0 2rem 0;
+}
+
+.btn-add{
+    border: 1px solid #504f4f;
     justify-content: center;
+    padding: 1rem;
+}
+
+.btn-add p{
+    font-size: 1rem;
+    text-align: center;
 }
