@@ -5,9 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="../Implementasi ke Web/tsp.css">
+        <link rel="stylesheet" href="../Implementasi ke Web/index.css">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@300&display=swap" rel="stylesheet">
-        <!-- <script src="../Implementasi ke Web/index_modal.js"></script> -->
     </head>
     <body>
         <section class="num-locations">
@@ -15,13 +14,16 @@
            <h1 class="text-center" style="font-family: 'Poppins', sans-serif; font-weight: bold; font-size: 2rem; font-style: italic;">Optimation Route Application</h1> 
 
             <form>
-                <div class="form-group was-validated">
-                    <label class="form-label" for="num_locations">Number of Locations</label>
-                    <input class="form-control" type="number" id="num_locations" required>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="button">Traveling Salesperson</button>
+                    <button class="btn btn-primary" type="button">Vehicle Routing Problem</button>
+                    <button class="btn btn-primary" type="button">Capacity Constraint</button>
                 </div>
-                <input class="btn btn-success w-100" type="submit" value="Enter" id="myBtn" data-bs-toggle="modal" data-bs-target="#myModal">
             </form>
-            
+            <div class="btn-add d-grid gap-2">
+                <p style="margin: 0rem">Tambahkan data lokasi disini</p>
+                <button class="btn btn-primary" type="button">Traveling Salesperson</button>
+            <div></div>
         </section>
     </body>
 </html>
