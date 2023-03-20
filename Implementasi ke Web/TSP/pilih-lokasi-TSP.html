@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Traveling Salesperson Problem</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="../TSP/tsp.css">
+        <script src="../TSP/tsp.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:wght@300&display=swap" rel="stylesheet">
+        <!-- <script src="../Implementasi ke Web/index_modal.js"></script> -->
+    </head>
+    <body>
+        <section class="num-locations">
+
+           <h1 class="text-center" style="font-family: 'Poppins', sans-serif; font-weight: bold; font-size: 2rem; font-style: italic;">Traveling Salesperson</h1> 
+
+            <form>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search Locations" aria-label="Search">
+                    <button class="btn btn-success" type="submit" style="justify-content: end;">Search</button>
+                </form>
+
+                    <div class="card rounded-3 py-1 scroll-sidebar" style="width: 100%; padding: 1rem; margin-top: 1rem;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault" style="color: black;">
+                              Mayora
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault" style="color: black;">
+                              UMN
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault" style="color: black;">
+                              Lippo Mall Puri
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault" style="color: black;">
+                              Summarecon Mall Bekasi
+                            </label>
+                        </div>
+                    </div>
+
+                    <p style="color: yellow; font-size: 0.7rem; margin-top: 1rem;">Pilih lokasi yang akan dijadikan Depot</p>
+                
+                    <div class="form-group was-validated">
+                        <input class="form-control" type="text" name="num_locations" id="num_locations" required>
+                    </div>
+
+                <input class="btn btn-success w-100" type="submit" name="locations" style="margin-top: 2rem;">
+            
+            </form>
+            
+        </section>
+
+    </body>
+</html>

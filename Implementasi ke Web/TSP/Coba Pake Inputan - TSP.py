@@ -21,6 +21,9 @@ for i in range(num_locations):
     lon = float(lon)
     locations.append((lat, lon))
 
+depot = int(input("Masukkan lokasi ke berapa yang ingin dijadikan depot: "))
+
+
 # num_locations = len(locations)
 
 distances = np.zeros((num_locations, num_locations))
@@ -37,7 +40,7 @@ def create_data_model():
     data = {}
     data['distance_matrix'] = distance_matrix
     data['num_vehicles'] = 1
-    data['depot'] = 0
+    data['depot'] = depot #nanti lokasi yang jadi depot dipilih dari inputan berdasarkan id lokasi
     return data
 
 # Create model
