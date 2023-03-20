@@ -10,7 +10,7 @@ num_locations = int(input("Masukkan Jumlah Lokasi yang akan dikunjungi: "))
 # Create data locations
 locations = []
 
-# Input dari user
+# Input dari user//
 for i in range(num_locations):
     # lat = float(input(f"Masukkan latitude lokasi ke-{i+1}: "))
     # lon = float(input(f"Masukkan longitude lokasi ke-{i+1}: "))
