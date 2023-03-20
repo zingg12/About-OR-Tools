@@ -78,6 +78,21 @@ def print_solution(manager, routing, solution):
     print(plan_output)
 
 #Print Solution
-if solution :
-    print_solution(manager, routing, solution)
+print_solution(manager, routing, solution)
+
+# def get_routes(solution, routing, manager):
+#     routes = []
+#     for route_nbr in range(routing.vehicles()):
+#         index = routing.Start(route_nbr)
+#         route = [manager.IndexToNode(index)]
+#         while not routing.IsEnd(index):
+#             index = solution.Value(routing.NextVar(index))
+#         route.append(manager.IndexToNode(index))
+#         routes.append(route)
+#     return routes
+
+# routes = get_routes(solution, routing, manager)
+# # Display the routes.
+# for i, route in enumerate(routes):
+#   print('Route', i, route)
 
