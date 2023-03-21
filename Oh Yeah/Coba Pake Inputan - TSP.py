@@ -10,7 +10,7 @@ num_locations = int(input("Masukkan Jumlah Lokasi yang akan dikunjungi: "))
 # Create data locations
 locations = []
 
-# Input dari user//
+# Input dari user
 for i in range(num_locations):
     # lat = float(input(f"Masukkan latitude lokasi ke-{i+1}: "))
     # lon = float(input(f"Masukkan longitude lokasi ke-{i+1}: "))
@@ -20,6 +20,9 @@ for i in range(num_locations):
     lat = float(lat)
     lon = float(lon)
     locations.append((lat, lon))
+
+depot = int(input("Masukkan lokasi ke berapa yang ingin dijadikan depot: "))
+
 
 # num_locations = len(locations)
 
@@ -37,7 +40,7 @@ def create_data_model():
     data = {}
     data['distance_matrix'] = distance_matrix
     data['num_vehicles'] = 1
-    data['depot'] = 0
+    data['depot'] = depot #nanti lokasi yang jadi depot dipilih dari inputan berdasarkan id lokasi
     return data
 
 # Create model
@@ -75,6 +78,6 @@ def print_solution(manager, routing, solution):
     print(plan_output)
 
 #Print Solution
-if solution :
-    print_solution(manager, routing, solution)
+print_solution(manager, routing, solution)
+
 
