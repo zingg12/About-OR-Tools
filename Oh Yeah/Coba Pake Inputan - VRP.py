@@ -23,7 +23,7 @@ for i in range(num_locations):
     lon = float(lon)
     locations.append((lat, lon))
 
-depot = int(input("Masukkan lokasi ke berapa yang ingin dijadikan depot: "))
+depot = int(input("Masukkan index lokasi ke berapa yang ingin dijadikan depot: "))
 
 num_locations = len(locations)
 
