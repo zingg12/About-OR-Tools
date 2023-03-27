@@ -12,8 +12,9 @@ locations = {
     'Metro TV': (-6.202777, 106.780809), #2
     'Summarecon Mall Serpong': (-6.239488, 106.625396), #3
     'Lippo Mall Puri': (-6.194608, 106.734364), #4
-    # 'UMN': (-6.18897, 106.738909), #5
+    'SMB': (-6.226194, 107.001009), #5
     'RCTI': (-6.182880, 106.785032), #6
+    'AEON': (-6.304409, 106.644157) # 7
 }
 
 num_locations = len(locations)
@@ -36,26 +37,26 @@ def create_data_model():
     return data
 
 # Solve the TSP problem
-def solve_tsp():
-    data = create_data_model()
-    manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
+data = create_data_model()
+manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
                                            data['num_vehicles'], data['depot'])
-    routing = pywrapcp.RoutingModel(manager)
+routing = pywrapcp.RoutingModel(manager)
 
-    def distance_callback(from_index, to_index):
-        from_node = manager.IndexToNode(from_index)
-        to_node = manager.IndexToNode(to_index)
-        return data['distance_matrix'][from_node][to_node] 
+def distance_callback(from_index, to_index):
+    from_node = manager.IndexToNode(from_index)
+    to_node = manager.IndexToNode(to_index)
+    return data['distance_matrix'][from_node][to_node]
 
-    transit_callback_index = routing.RegisterTransitCallback(distance_callback)
-    routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
+transit_callback_index = routing.RegisterTransitCallback(distance_callback)
+routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
 
-    search_parameters = pywrapcp.DefaultRoutingSearchParameters()
-    search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.SAVINGS)
-    search_parameters.time_limit.seconds = 30
-    solution = routing.SolveWithParameters(search_parameters)
+search_parameters = pywrapcp.DefaultRoutingSearchParameters()
+search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.SAVINGS)
+search_parameters.time_limit.seconds = 30
+solution = routing.SolveWithParameters(search_parameters)
     
-    # Print the solution
+# Print the solution
+def print_solution(manager, routing, solution):
     index = routing.Start(0)
     plan_output = 'Route for vehicle 0:\n'
     route_distance = 0
@@ -69,5 +70,6 @@ def solve_tsp():
     plan_output += 'Route distance: {} km\n'.format(route_distance)
     print(plan_output)
 
-if __name__ == '__main__':
-    solve_tsp()
+#Print Solution
+# print("Content-Type: text/html\n")
+print_solution(manager, routing, solution)

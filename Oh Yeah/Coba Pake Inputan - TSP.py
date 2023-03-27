@@ -12,9 +12,6 @@ locations = []
 
 # Input dari user
 for i in range(num_locations):
-    # lat = float(input(f"Masukkan latitude lokasi ke-{i+1}: "))
-    # lon = float(input(f"Masukkan longitude lokasi ke-{i+1}: "))
-    # locations.append((lat, lon))
     koordinat = input(f"Masukkan koordinat lokasi ke-{i+1}: ")
     lat, lon = koordinat.split(", ")
     lat = float(lat)
@@ -78,6 +75,7 @@ def print_solution(manager, routing, solution):
     print(plan_output)
 
 #Print Solution
+# print("Content-Type: text/html\n")
 print_solution(manager, routing, solution)
 
 
